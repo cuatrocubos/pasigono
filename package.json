@@ -1,0 +1,9 @@
+{
+  "name": "pasigono",
+  "version": "1.0.0",
+  "author": "Jorge Giron <jorge.giron.29@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "written-number": "^0.11.1"
+  }
+}
