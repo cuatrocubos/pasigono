@@ -626,9 +626,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
   get_total_print(doc) {
     var ret = [];
     // Subtotal
-    var length = doc.net_total.toString().length;
+    var length = format_currency(doc.net_total).length;
     var subtotal = 'Subtotal';
-    for (var i = length; i <= 11; i++) {
+    for (var i = length; i <= 15; i++) {
       subtotal = subtotal + ' ';
     }
     subtotal = subtotal + format_currency(doc.net_total);
@@ -640,9 +640,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     ret.push(subtotal + '\x0A');
 
     // Descuentos
-    var length = doc.discount_amount.toString().length;
+    var length = format_currency(doc.discount_amount).length;
     var discounts = 'Descuentos y Rebajas';
-    for (var i = length; i <= 11; i++) {
+    for (var i = length; i <= 15; i++) {
       discounts = discounts + ' ';
     }
     discounts = discounts + format_currency(doc.discount_amount);
@@ -699,9 +699,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     });
 
     // Exento
-    var length = invoice_taxes.exento_total.toString().length;
+    var length = format_currency(invoice_taxes.exento_total).length;
     var exempt = 'Importe Exento';
-    for (var i = length; i <= 11; i++) {
+    for (var i = length; i <= 15; i++) {
       exempt = exempt + ' ';
     }
     exempt = exempt + format_currency(invoice_taxes.exento_total);
@@ -713,9 +713,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     ret.push(exempt + '\x0A');
 
     // Exonerado
-    var length = invoice_taxes.exonerado_total.toString().length;
+    var length = format_currency(invoice_taxes.exonerado_total).length;
     var exempt = 'Importe Exonerado';
-    for (var i = length; i <= 11; i++) {
+    for (var i = length; i <= 15; i++) {
       exempt = exempt + ' ';
     }
     exempt = exempt + format_currency(invoice_taxes.exonerado_total);
@@ -727,37 +727,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     ret.push(exempt + '\x0A');
 
     // Gravado 15
-    var length = invoice_taxes.isv_15_tax_total.toString().length;
+    var length = format_currency(invoice_taxes.isv_15_total).length;
     var exempt = 'Importe Gravado ISV 15%';
-    for (var i = length; i <= 11; i++) {
-      exempt = exempt + ' ';
-    }
-    exempt = exempt + format_currency(invoice_taxes.isv_15_tax_total);
-    var tlength = exempt.length;
-    //Add extra spaces to align everything to the right
-    for (var i = 0; i < 40 - tlength; i++) {
-      exempt = ' ' + exempt;
-    }
-    ret.push(exempt + '\x0A');
-
-    // Gravado 18
-    var length = invoice_taxes.isv_18_tax_total.toString().length;
-    var exempt = 'Importe Gravado ISV 18%';
-    for (var i = length; i <= 11; i++) {
-      exempt = exempt + ' ';
-    }
-    exempt = exempt + format_currency(invoice_taxes.isv_18_tax_total);
-    var tlength = exempt.length;
-    //Add extra spaces to align everything to the right
-    for (var i = 0; i < 40 - tlength; i++) {
-      exempt = ' ' + exempt;
-    }
-    ret.push(exempt + '\x0A');
-
-    // ISV 15
-    var length = invoice_taxes.isv_15_total.toString().length;
-    var exempt = 'ISV 15%';
-    for (var i = length; i <= 11; i++) {
+    for (var i = length; i <= 15; i++) {
       exempt = exempt + ' ';
     }
     exempt = exempt + format_currency(invoice_taxes.isv_15_total);
@@ -768,13 +740,41 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     }
     ret.push(exempt + '\x0A');
 
-    // ISV 18
-    var length = invoice_taxes.isv_18_total.toString().length;
-    var exempt = 'ISV 15%';
-    for (var i = length; i <= 11; i++) {
+    // Gravado 18
+    var length = format_currency(invoice_taxes.isv_18_total).length;
+    var exempt = 'Importe Gravado ISV 18%';
+    for (var i = length; i <= 15; i++) {
       exempt = exempt + ' ';
     }
     exempt = exempt + format_currency(invoice_taxes.isv_18_total);
+    var tlength = exempt.length;
+    //Add extra spaces to align everything to the right
+    for (var i = 0; i < 40 - tlength; i++) {
+      exempt = ' ' + exempt;
+    }
+    ret.push(exempt + '\x0A');
+
+    // ISV 15
+    var length = format_currency(invoice_taxes.isv_15_tax_total).length;
+    var exempt = 'ISV 15%';
+    for (var i = length; i <= 15; i++) {
+      exempt = exempt + ' ';
+    }
+    exempt = exempt + format_currency(invoice_taxes.isv_15_tax_total);
+    var tlength = exempt.length;
+    //Add extra spaces to align everything to the right
+    for (var i = 0; i < 40 - tlength; i++) {
+      exempt = ' ' + exempt;
+    }
+    ret.push(exempt + '\x0A');
+
+    // ISV 18
+    var length = format_currency(invoice_taxes.isv_18_tax_total).length;
+    var exempt = 'ISV 18%';
+    for (var i = length; i <= 15; i++) {
+      exempt = exempt + ' ';
+    }
+    exempt = exempt + format_currency(invoice_taxes.isv_18_tax_total);
     var tlength = exempt.length;
     //Add extra spaces to align everything to the right
     for (var i = 0; i < 40 - tlength; i++) {
@@ -786,7 +786,7 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     //   doc.taxes.forEach(function (row) {
     //     length = row.total.toString().length;
     //     total = row.description;
-    //     for (var i = length; i <= 11; i++) {
+    //     for (var i = length; i <= 15; i++) {
     //       total = total + ' ';
     //     }
     //     total = total + doc.currency + doc.total.toString();
@@ -802,8 +802,8 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     //Grand Total
     ret.push('\x1B' + '\x45' + '\x0D'); //Bold on
     var total = 'Total';
-    length = doc.grand_total.toString().length;
-    for (var i = length; i <= 11; i++) {
+    length = format_currency(doc.grand_total).length;
+    for (var i = length; i <= 15; i++) {
       total = total + ' ';
     }
     total = total + format_currency(doc.grand_total);
@@ -821,9 +821,9 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     if (doc.payments && doc.payments.length > 0) {
       doc.payments.forEach(function (row) {
         if (row.base_amount > 0) {
-          length = row.base_amount.toString().length;
+          length = format_currency(row.base_amount).length;
           total = row.mode_of_payment + ' ';
-          for (var i = length; i <= 11; i++) {
+          for (var i = length; i <= 15; i++) {
             total = total + ' ';
           }
           total = total + format_currency(row.base_amount);
@@ -861,8 +861,8 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     //Total Payments
     ret.push('\x1B' + '\x45' + '\x0D'); //Bold on
     total = 'Recibido ';
-    length = doc.grand_total.toString().length;
-    for (var i = length; i <= 11; i++) {
+    length = format_currency(doc.grand_total).length;
+    for (var i = length; i <= 15; i++) {
       total = total + ' ';
     }
     total = total + format_currency(doc.paid_amount);
@@ -900,7 +900,10 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
         (doc.correlativo_orden_compra_exenta
           ? doc.correlativo_orden_compra_exenta.toString()
           : '') +
+        '\x0A' +
         '\x0A',
+      'ORIGINAL: CLIENTE' + '\x0A',
+      'COPIA: EMISOR' + '\x0A',
     ];
 
     return ret;
@@ -910,20 +913,20 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     var ilength = item.length;
     var ret = [];
     //Put in for loop in case item length > 30
-    for (var i = 0; i < ilength; i = i + 29) {
-      ret.push(item.substring(i, i + 29) + '\x0A');
+    for (var i = 0; i < ilength; i = i + 25) {
+      ret.push(item.substring(i, i + 25) + '\x0A');
     }
 
     //For quantity
     var qty_rate = qty.toString() + ' @ ' + format_currency(rate);
     var qlength = qty_rate.length;
-    for (var i = 0; i < 29 - qlength; i++) {
+    for (var i = 0; i < 25 - qlength; i++) {
       qty_rate = qty_rate + ' ';
     }
 
     //Add amount at end of qty-rate line
     var alength = format_currency(amount).length;
-    for (var i = 0; i < 10 - alength; i++) {
+    for (var i = 0; i < 15 - alength; i++) {
       qty_rate = qty_rate + ' ';
     }
     qty_rate = qty_rate + format_currency(amount);

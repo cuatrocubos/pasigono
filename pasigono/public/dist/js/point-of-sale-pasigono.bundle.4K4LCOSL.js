@@ -6627,9 +6627,9 @@ Return`,
     }
     get_total_print(doc) {
       var ret = [];
-      var length = doc.net_total.toString().length;
+      var length = format_currency(doc.net_total).length;
       var subtotal = "Subtotal";
-      for (var i = length; i <= 11; i++) {
+      for (var i = length; i <= 15; i++) {
         subtotal = subtotal + " ";
       }
       subtotal = subtotal + format_currency(doc.net_total);
@@ -6638,9 +6638,9 @@ Return`,
         subtotal = " " + subtotal;
       }
       ret.push(subtotal + "\n");
-      var length = doc.discount_amount.toString().length;
+      var length = format_currency(doc.discount_amount).length;
       var discounts = "Descuentos y Rebajas";
-      for (var i = length; i <= 11; i++) {
+      for (var i = length; i <= 15; i++) {
         discounts = discounts + " ";
       }
       discounts = discounts + format_currency(doc.discount_amount);
@@ -6689,9 +6689,9 @@ Return`,
           }
         });
       });
-      var length = invoice_taxes.exento_total.toString().length;
+      var length = format_currency(invoice_taxes.exento_total).length;
       var exempt = "Importe Exento";
-      for (var i = length; i <= 11; i++) {
+      for (var i = length; i <= 15; i++) {
         exempt = exempt + " ";
       }
       exempt = exempt + format_currency(invoice_taxes.exento_total);
@@ -6700,9 +6700,9 @@ Return`,
         exempt = " " + exempt;
       }
       ret.push(exempt + "\n");
-      var length = invoice_taxes.exonerado_total.toString().length;
+      var length = format_currency(invoice_taxes.exonerado_total).length;
       var exempt = "Importe Exonerado";
-      for (var i = length; i <= 11; i++) {
+      for (var i = length; i <= 15; i++) {
         exempt = exempt + " ";
       }
       exempt = exempt + format_currency(invoice_taxes.exonerado_total);
@@ -6711,31 +6711,9 @@ Return`,
         exempt = " " + exempt;
       }
       ret.push(exempt + "\n");
-      var length = invoice_taxes.isv_15_tax_total.toString().length;
+      var length = format_currency(invoice_taxes.isv_15_total).length;
       var exempt = "Importe Gravado ISV 15%";
-      for (var i = length; i <= 11; i++) {
-        exempt = exempt + " ";
-      }
-      exempt = exempt + format_currency(invoice_taxes.isv_15_tax_total);
-      var tlength = exempt.length;
-      for (var i = 0; i < 40 - tlength; i++) {
-        exempt = " " + exempt;
-      }
-      ret.push(exempt + "\n");
-      var length = invoice_taxes.isv_18_tax_total.toString().length;
-      var exempt = "Importe Gravado ISV 18%";
-      for (var i = length; i <= 11; i++) {
-        exempt = exempt + " ";
-      }
-      exempt = exempt + format_currency(invoice_taxes.isv_18_tax_total);
-      var tlength = exempt.length;
-      for (var i = 0; i < 40 - tlength; i++) {
-        exempt = " " + exempt;
-      }
-      ret.push(exempt + "\n");
-      var length = invoice_taxes.isv_15_total.toString().length;
-      var exempt = "ISV 15%";
-      for (var i = length; i <= 11; i++) {
+      for (var i = length; i <= 15; i++) {
         exempt = exempt + " ";
       }
       exempt = exempt + format_currency(invoice_taxes.isv_15_total);
@@ -6744,9 +6722,9 @@ Return`,
         exempt = " " + exempt;
       }
       ret.push(exempt + "\n");
-      var length = invoice_taxes.isv_18_total.toString().length;
-      var exempt = "ISV 15%";
-      for (var i = length; i <= 11; i++) {
+      var length = format_currency(invoice_taxes.isv_18_total).length;
+      var exempt = "Importe Gravado ISV 18%";
+      for (var i = length; i <= 15; i++) {
         exempt = exempt + " ";
       }
       exempt = exempt + format_currency(invoice_taxes.isv_18_total);
@@ -6755,10 +6733,32 @@ Return`,
         exempt = " " + exempt;
       }
       ret.push(exempt + "\n");
+      var length = format_currency(invoice_taxes.isv_15_tax_total).length;
+      var exempt = "ISV 15%";
+      for (var i = length; i <= 15; i++) {
+        exempt = exempt + " ";
+      }
+      exempt = exempt + format_currency(invoice_taxes.isv_15_tax_total);
+      var tlength = exempt.length;
+      for (var i = 0; i < 40 - tlength; i++) {
+        exempt = " " + exempt;
+      }
+      ret.push(exempt + "\n");
+      var length = format_currency(invoice_taxes.isv_18_tax_total).length;
+      var exempt = "ISV 18%";
+      for (var i = length; i <= 15; i++) {
+        exempt = exempt + " ";
+      }
+      exempt = exempt + format_currency(invoice_taxes.isv_18_tax_total);
+      var tlength = exempt.length;
+      for (var i = 0; i < 40 - tlength; i++) {
+        exempt = " " + exempt;
+      }
+      ret.push(exempt + "\n");
       ret.push("\x1BE\r");
       var total = "Total";
-      length = doc.grand_total.toString().length;
-      for (var i = length; i <= 11; i++) {
+      length = format_currency(doc.grand_total).length;
+      for (var i = length; i <= 15; i++) {
         total = total + " ";
       }
       total = total + format_currency(doc.grand_total);
@@ -6773,9 +6773,9 @@ Return`,
       if (doc.payments && doc.payments.length > 0) {
         doc.payments.forEach(function(row) {
           if (row.base_amount > 0) {
-            length = row.base_amount.toString().length;
+            length = format_currency(row.base_amount).length;
             total = row.mode_of_payment + " ";
-            for (var i2 = length; i2 <= 11; i2++) {
+            for (var i2 = length; i2 <= 15; i2++) {
               total = total + " ";
             }
             total = total + format_currency(row.base_amount);
@@ -6802,8 +6802,8 @@ Return`,
       }
       ret.push("\x1BE\r");
       total = "Recibido ";
-      length = doc.grand_total.toString().length;
-      for (var i = length; i <= 11; i++) {
+      length = format_currency(doc.grand_total).length;
+      for (var i = length; i <= 15; i++) {
         total = total + " ";
       }
       total = total + format_currency(doc.paid_amount);
@@ -6823,23 +6823,25 @@ Return`,
       var ret = [
         "Registro SAG " + (doc.identificativo_registro_sag ? doc.identificativo_registro_sag.toString() : "") + "\n",
         "Const. Regis. Exonerado # " + (doc.correlativo_constancia_registro_exonerado ? doc.correlativo_constancia_registro_exonerado.toString() : "") + "\n",
-        "OC Exenta " + (doc.correlativo_orden_compra_exenta ? doc.correlativo_orden_compra_exenta.toString() : "") + "\n"
+        "OC Exenta " + (doc.correlativo_orden_compra_exenta ? doc.correlativo_orden_compra_exenta.toString() : "") + "\n\n",
+        "ORIGINAL: CLIENTE\n",
+        "COPIA: EMISOR\n"
       ];
       return ret;
     }
     get_item_print(item, qty, rate, amount, currency) {
       var ilength = item.length;
       var ret = [];
-      for (var i = 0; i < ilength; i = i + 29) {
-        ret.push(item.substring(i, i + 29) + "\n");
+      for (var i = 0; i < ilength; i = i + 25) {
+        ret.push(item.substring(i, i + 25) + "\n");
       }
       var qty_rate = qty.toString() + " @ " + format_currency(rate);
       var qlength = qty_rate.length;
-      for (var i = 0; i < 29 - qlength; i++) {
+      for (var i = 0; i < 25 - qlength; i++) {
         qty_rate = qty_rate + " ";
       }
       var alength = format_currency(amount).length;
-      for (var i = 0; i < 10 - alength; i++) {
+      for (var i = 0; i < 15 - alength; i++) {
         qty_rate = qty_rate + " ";
       }
       qty_rate = qty_rate + format_currency(amount);
@@ -6848,4 +6850,4 @@ Return`,
     }
   };
 })();
-//# sourceMappingURL=point-of-sale-pasigono.bundle.B35SV7YK.js.map
+//# sourceMappingURL=point-of-sale-pasigono.bundle.4K4LCOSL.js.map
