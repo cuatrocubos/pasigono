@@ -626,12 +626,12 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
   get_total_print(doc) {
     var ret = [];
     // Subtotal
-    var length = format_currency(doc.net_total).length;
+    var length = format_currency(doc.base_total).length;
     var subtotal = 'Subtotal';
     for (var i = length; i <= 15; i++) {
       subtotal = subtotal + ' ';
     }
-    subtotal = subtotal + format_currency(doc.net_total);
+    subtotal = subtotal + format_currency(doc.base_total);
     var tlength = subtotal.length;
     //Add extra spaces to align everything to the right
     for (var i = 0; i < 40 - tlength; i++) {
@@ -874,7 +874,7 @@ erpnext.PointOfSale.Controller = class extends erpnext.PointOfSale.Controller {
     ret.push(total + '\x0A');
     ret.push('\x1B' + '\x45' + '\x0A' + '\x0A'); //Bold off
 
-    ret.push(writtenNumber(doc.grand_total, { lang: 'es' }) + '\x0A' + '\x0A');
+    ret.push(doc.base_in_words + '\x0A' + '\x0A');
 
     //Add the stripe data
     if (stripe_info.length > 0) {

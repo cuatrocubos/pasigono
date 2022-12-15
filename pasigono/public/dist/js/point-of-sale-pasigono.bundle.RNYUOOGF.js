@@ -4872,6 +4872,7 @@
     make_invoice_fields_control() {
       frappe.db.get_doc("POS Settings", void 0).then((doc) => {
         const fields = doc.invoice_fields;
+        console.log("Invoice Fields", doc.invoice_fields);
         if (!fields.length)
           return;
         this.$invoice_fields = this.$invoice_fields_section.find(".invoice-fields");
@@ -5010,7 +5011,7 @@
       this.render_payment_section();
       if (window.enable_weigh_scale == 1) {
         if (typeof window.mettlerWorker != "undefined") {
-          window.mettlerWorker.postMessage({ "command": "stop" });
+          window.mettlerWorker.postMessage({ command: "stop" });
         }
       }
     }
@@ -6627,12 +6628,12 @@ Return`,
     }
     get_total_print(doc) {
       var ret = [];
-      var length = format_currency(doc.net_total).length;
+      var length = format_currency(doc.base_total).length;
       var subtotal = "Subtotal";
       for (var i = length; i <= 15; i++) {
         subtotal = subtotal + " ";
       }
-      subtotal = subtotal + format_currency(doc.net_total);
+      subtotal = subtotal + format_currency(doc.base_total);
       var tlength = subtotal.length;
       for (var i = 0; i < 40 - tlength; i++) {
         subtotal = " " + subtotal;
@@ -6813,7 +6814,7 @@ Return`,
       }
       ret.push(total + "\n");
       ret.push("\x1BE\n\n");
-      ret.push(writtenNumber(doc.grand_total, { lang: "es" }) + "\n\n");
+      ret.push(doc.base_in_words + "\n\n");
       if (stripe_info.length > 0) {
         ret.push.apply(ret, stripe_info);
       }
@@ -6850,4 +6851,4 @@ Return`,
     }
   };
 })();
-//# sourceMappingURL=point-of-sale-pasigono.bundle.4K4LCOSL.js.map
+//# sourceMappingURL=point-of-sale-pasigono.bundle.RNYUOOGF.js.map
